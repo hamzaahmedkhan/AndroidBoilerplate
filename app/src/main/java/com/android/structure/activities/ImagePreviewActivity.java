@@ -48,7 +48,7 @@ public class ImagePreviewActivity extends AppCompatActivity {
     }
 
     private void loadImage(String url) {
-        ImageLoaderHelper.loadImageWithConstantHeaders(this, image, url);
+        ImageLoaderHelper.loadImageWithConstantHeaders(this, image, url, true);
     }
 
 

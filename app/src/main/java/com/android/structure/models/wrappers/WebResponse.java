@@ -1,6 +1,9 @@
 package com.android.structure.models.wrappers;
 
+import com.android.structure.managers.retrofit.entities.ErrorModel;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 /**
  * Created by khanhamza on 09-Mar-17.
@@ -8,19 +11,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class WebResponse<T> {
 
-    @SerializedName("ResponseMessage")
-    public String responseMessage;
+    @SerializedName("message")
+    public String message;
 
-    @SerializedName("ResponseCode")
-    public int responseCode;
+    @SerializedName("success")
+    private boolean success;
 
-    @SerializedName("ResponseType")
-    public String responseType;
-
-    @SerializedName("ResponseResult")
+    @SerializedName("data")
     public T result;
 
+    @SerializedName("errors")
+    public ArrayList<ErrorModel> errorList;
+
     public boolean isSuccess() {
-        return responseCode == 200;
+        return success;
     }
 }

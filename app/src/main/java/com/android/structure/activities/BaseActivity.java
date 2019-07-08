@@ -15,10 +15,10 @@ import com.android.structure.callbacks.GenericClickableInterface;
 import com.android.structure.constatnts.AppConstants;
 import com.android.structure.fragments.LeftSideMenuFragment;
 import com.android.structure.fragments.abstracts.BaseFragment;
-import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 
 import com.android.structure.R;
 
+import com.android.structure.fragments.abstracts.GenericDialogFragment;
 import com.android.structure.widget.TitleBar;
 
 
@@ -75,36 +75,26 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void closeApp() {
-//        final GenericDialogFragment genericDialogFragment = GenericDialogFragment.newInstance();
-//
-//        genericDialogFragment.setTitle("Quit");
-//        genericDialogFragment.setMessage("Do you want to close this application?");
-//        genericDialogFragment.setButton1("Yes", new GenericClickableInterface() {
-//            @Override
-//            public void click() {
-//                genericDialogFragment.getDialog().dismiss();
-//                finish();
-//            }
-//        });
-//
-//        genericDialogFragment.setButton2("No", new GenericClickableInterface() {
-//            @Override
-//            public void click() {
-//                genericDialogFragment.getDialog().dismiss();
-//            }
-//        });
-//        genericDialogFragment.show(getSupportFragmentManager(), null);
-        new iOSDialogBuilder(this)
-                .setTitle("Quit")
-                .setSubtitle("Do you want to close this application?")
-                .setBoldPositiveLabel(false)
-                .setCancelable(false)
-                .setPositiveListener("Yes", dialog -> {
-                    dialog.dismiss();
-                    finish();
-                })
-                .setNegativeListener("No", dialog -> dialog.dismiss())
-                .build().show();
+        final GenericDialogFragment genericDialogFragment = GenericDialogFragment.newInstance();
+
+        genericDialogFragment.setTitle("Logout");
+        genericDialogFragment.setMessage(getString(R.string.areYouSureToLogout));
+        genericDialogFragment.setButton1("Yes", new GenericClickableInterface() {
+            @Override
+            public void click() {
+                genericDialogFragment.dismiss();
+                baseFragment.sharedPreferenceManager.clearDB();
+                baseFragment.getBaseActivity().clearAllActivitiesExceptThis(MainActivity.class);
+            }
+        });
+
+        genericDialogFragment.setButton2("No", new GenericClickableInterface() {
+            @Override
+            public void click() {
+                genericDialogFragment.getDialog().dismiss();
+            }
+        });
+        genericDialogFragment.show(baseFragment.getBaseActivity().getSupportFragmentManager(), null);
     }
 
     public void addDockableFragment(Fragment fragment, boolean isTransition) {
@@ -219,8 +209,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setGenericClickableInterface(GenericClickableInterface genericClickableInterface) {
         this.genericClickableInterface = genericClickableInterface;
     }
-
-
 
 
 }

@@ -108,22 +108,22 @@ public class PinDialogFragment extends DialogFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().length() == 5) {
 
-                    if (StringHelper.checkNotNullAndNotEmpty(SharedPreferenceManager.getInstance(getContext()).getCurrentUser().getPIN())) {
-                        if (charSequence.toString().equals(SharedPreferenceManager.getInstance(getContext()).getCurrentUser().getPIN())) {
-                            new Handler().postDelayed(() -> {
-                                onSaveClick.onClick(view);
-                                KeyboardHelper.hideSoftKeyboard(getContext(), view);
-                                dismiss();
-                            }, 300);
-                        } else {
-                            txtPinCode.setText("");
-                            txtWrongPinNumber.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        UIHelper.showShortToastInCenter(getContext(), "No PIN assigned to this user.");
-                        txtPinCode.setText("");
-                        txtWrongPinNumber.setVisibility(View.VISIBLE);
-                    }
+//                    if (StringHelper.checkNotNullAndNotEmpty(SharedPreferenceManager.getInstance(getContext()).getCurrentUser().getPIN())) {
+//                        if (charSequence.toString().equals(SharedPreferenceManager.getInstance(getContext()).getCurrentUser().getPIN())) {
+//                            new Handler().postDelayed(() -> {
+//                                onSaveClick.onClick(view);
+//                                KeyboardHelper.hideSoftKeyboard(getContext(), view);
+//                                dismiss();
+//                            }, 300);
+//                        } else {
+//                            txtPinCode.setText("");
+//                            txtWrongPinNumber.setVisibility(View.VISIBLE);
+//                        }
+//                    } else {
+//                        UIHelper.showShortToastInCenter(getContext(), "No PIN assigned to this user.");
+//                        txtPinCode.setText("");
+//                        txtWrongPinNumber.setVisibility(View.VISIBLE);
+//                    }
 
 
                 }

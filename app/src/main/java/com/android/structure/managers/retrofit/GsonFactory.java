@@ -1,6 +1,7 @@
 package com.android.structure.managers.retrofit;
 
 import com.android.structure.managers.retrofit.entities.ServiceDate;
+import com.android.structure.managers.retrofit.entities.ServiceDateTime;
 import com.android.structure.managers.retrofit.entities.ServiceTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,9 +12,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
-import com.android.structure.managers.retrofit.entities.ServiceDateTime;
-
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -109,6 +107,8 @@ public class GsonFactory {
         }
     }
 
+    ;
+
     public static class ServiceTimeSerializer implements
             JsonSerializer<ServiceTime>, JsonDeserializer<ServiceTime> {
 
@@ -139,6 +139,8 @@ public class GsonFactory {
             return time;
         }
     }
+
+    ;
 
     public static class ServiceDateTimeSerializer implements
             JsonSerializer<ServiceDateTime>, JsonDeserializer<ServiceDateTime> {

@@ -1,140 +1,152 @@
 package com.android.structure.models.receiving_model;
 
+import com.android.structure.managers.retrofit.GsonFactory;
+import com.android.structure.models.SpinnerModel;
+import com.android.structure.models.UserDetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class UserModel {
 
     @Expose
-    @SerializedName("CAC")
-    private String CAC;
+    @SerializedName("expires_in")
+    private int expiresIn;
     @Expose
-    @SerializedName("isRecordExist")
-    private String isRecordExist;
+    @SerializedName("token_type")
+    private String tokenType;
     @Expose
-    @SerializedName("PIN")
-    private String PIN;
+    @SerializedName("access_token")
+    private String accessToken;
     @Expose
-    @SerializedName("Password")
-    private String Password;
+    @SerializedName("specialization")
+    private List<SpinnerModel> specializations;
     @Expose
-    @SerializedName("UserID")
-    private String UserID;
+    @SerializedName("dependants")
+    private List<UserModel> dependants;
     @Expose
-    @SerializedName("UserPicture")
-    private String UserPicture;
+    @SerializedName("details")
+    private UserDetails userDetails;
     @Expose
-    @SerializedName("UserPictureExists")
-    private boolean UserPictureExists;
+    @SerializedName("email")
+    private String email;
     @Expose
-    @SerializedName("Role")
-    private String Role;
+    @SerializedName("chat_enabled")
+    private boolean chatEnabled;
     @Expose
-    @SerializedName("PhysicianNumber")
-    private String PhysicianNumber;
+    @SerializedName("review_enabled")
+    private boolean reviewEnabled;
     @Expose
-    @SerializedName("Speciality")
-    private String Speciality;
+    @SerializedName("roles_csv")
+    private String roles_csv;
     @Expose
-    @SerializedName("Mnemonic")
-    private String Mnemonic;
-    @Expose
-    @SerializedName("Name")
-    private String Name;
+    @SerializedName("id")
+    private int id;
 
-    public String getCAC() {
-        return CAC;
+    transient boolean isSelected = false;
+
+    public boolean isSelected() {
+        return isSelected;
     }
 
-    public void setCAC(String CAC) {
-        this.CAC = CAC;
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
-    public String getIsRecordExist() {
-        return isRecordExist;
+    public int getRoles_csv() {
+        if (roles_csv == null || roles_csv.isEmpty()) {
+            return 0;
+        }
+        return Integer.valueOf(roles_csv);
     }
 
-    public void setIsRecordExist(String isRecordExist) {
-        this.isRecordExist = isRecordExist;
+    public void setRoles_csv(String roles_csv) {
+        this.roles_csv = roles_csv;
     }
 
-    public String getPIN() {
-        return PIN;
+    public boolean getChatEnabled() {
+        return chatEnabled;
     }
 
-    public void setPIN(String PIN) {
-        this.PIN = PIN;
+    public void setChatEnabled(boolean chatEnabled) {
+        this.chatEnabled = chatEnabled;
     }
 
-    public String getPassword() {
-        return Password;
+    public boolean getReviewEnabled() {
+        return reviewEnabled;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setReviewEnabled(boolean reviewEnabled) {
+        this.reviewEnabled = reviewEnabled;
     }
 
-    public String getUserID() {
-        return UserID;
+    public int getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setUserID(String UserID) {
-        this.UserID = UserID;
+    public void setExpiresIn(int expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
-    public String getUserPicture() {
-        return UserPicture;
+    public String getTokenType() {
+        return tokenType;
     }
 
-    public void setUserPicture(String UserPicture) {
-        this.UserPicture = UserPicture;
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
     }
 
-    public boolean getUserPictureExists() {
-        return UserPictureExists;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setUserPictureExists(boolean UserPictureExists) {
-        this.UserPictureExists = UserPictureExists;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getRole() {
-        return Role;
+    public List<SpinnerModel> getSpecializations() {
+        return specializations;
     }
 
-    public void setRole(String Role) {
-        this.Role = Role;
+    public void setSpecializations(List<SpinnerModel> specializations) {
+        this.specializations = specializations;
     }
 
-    public String getPhysicianNumber() {
-        return PhysicianNumber;
+    public List<UserModel> getDependants() {
+        return dependants;
     }
 
-    public void setPhysicianNumber(String PhysicianNumber) {
-        this.PhysicianNumber = PhysicianNumber;
+    public void setDependants(List<UserModel> dependants) {
+        this.dependants = dependants;
     }
 
-    public String getSpeciality() {
-        return Speciality;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setSpeciality(String Speciality) {
-        this.Speciality = Speciality;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 
-    public String getMnemonic() {
-        return Mnemonic;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMnemonic(String Mnemonic) {
-        this.Mnemonic = Mnemonic;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getName() {
-        return Name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return GsonFactory.getSimpleGson().toJson(this);
     }
 }

@@ -36,8 +36,6 @@ import android.widget.Toast;
 import com.android.structure.adapters.SpinnerDialogAdapter;
 import com.android.structure.models.IntWrapper;
 import com.android.structure.models.SpinnerModel;
-import com.gdacciaro.iOSDialog.iOSDialogBuilder;
-import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import com.google.common.base.Strings;
 import com.google.gson.reflect.TypeToken;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -111,6 +109,39 @@ public class UIHelper {
         // showLongToastInCenter(ctx, R.string.msg_connection_error);
     }
 
+
+    public static void showAlertDialogWithCallback(String message, CharSequence title, DialogInterface.OnClickListener onClickListener,
+                                                   Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setTitle(title)
+                .setCancelable(true)
+                .setNegativeButton("OK", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
+                    onClickListener.onClick(dialogInterface, i);
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    public static void showAlertDialog(Context context, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setTitle("Alert")
+                .setCancelable(true)
+                .setNegativeButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     public static void showAlertDialog(String message, CharSequence title,
                                        Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -133,14 +164,14 @@ public class UIHelper {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
                 .setMessage(message)
-                .setCancelable(true)
-                .setNegativeButton("Cancel",
+                .setCancelable(false)
+                .setNegativeButton("No",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         })
-                .setPositiveButton("OK", onClickListener);
+                .setPositiveButton("Yes", onClickListener);
 
         if (!title.isEmpty())
             builder.setTitle(title);
@@ -161,7 +192,7 @@ public class UIHelper {
         int green = Color.green(color);
         int blue = Color.blue(color);
 
-        float[] hsl = new float[3];
+        float hsl[] = new float[3];
         ColorUtils.RGBToHSL(red, green, blue, hsl);
         return hsl[2];
     }
@@ -617,27 +648,24 @@ public class UIHelper {
         final ArrayList<SpinnerModel> listCopy = GsonFactory.getSimpleGson().fromJson(s, type);
 
         if (onSpinnerItemClick == null) {
-            dialogFragment = SpinnerDialogFragment.newInstance(title, listCopy, new OnSpinnerItemClickListener() {
-                @Override
-                public void onItemClick(int position, Object object, SpinnerDialogAdapter adapter) {
-                    if (object instanceof SpinnerModel) {
-                        textView.setText(((SpinnerModel) object).getText());
-                        for (SpinnerModel arrDatum : listCopy) {
-                            arrDatum.setSelected(false);
-                        }
-                        listCopy.get(position).setSelected(true);
-//                        adapter.getArrData().get(position).setSelected(true);
-
-                        for (SpinnerModel arrDatum : arrData) {
-                            arrDatum.setSelected(false);
-                        }
-                        arrData.get(position).setSelected(true);
-//                        adapter.getArrData().get(position).setSelected(true);
-
-
-                        adapter.notifyDataSetChanged();
-                        positionToScroll.value = position;
+            dialogFragment = SpinnerDialogFragment.newInstance(title, listCopy, (position, object, adapter) -> {
+                if (object instanceof SpinnerModel) {
+                    textView.setText(((SpinnerModel) object).getText());
+                    for (SpinnerModel arrDatum : listCopy) {
+                        arrDatum.setSelected(false);
                     }
+                    listCopy.get(position).setSelected(true);
+//                        adapter.getArrData().get(position).setSelected(true);
+
+                    for (SpinnerModel arrDatum : arrData) {
+                        arrDatum.setSelected(false);
+                    }
+                    arrData.get(position).setSelected(true);
+//                        adapter.getArrData().get(position).setSelected(true);
+
+
+                    adapter.notifyDataSetChanged();
+                    positionToScroll.value = position;
                 }
             }, onSpinnerOKPressedListener, positionToScroll.value);
         } else {
@@ -696,27 +724,6 @@ public class UIHelper {
 
     }
 
-
-    public static void showIOSPopup(Context context, String title, String subTitle, String positiveLabel, String negativeLabel, iOSDialogClickListener positiveListener, iOSDialogClickListener negativeListener) {
-
-        new iOSDialogBuilder(context)
-                .setTitle(title)
-                .setSubtitle(subTitle)
-                .setBoldPositiveLabel(false)
-                .setCancelable(false)
-                .setPositiveListener(positiveLabel, dialog -> {
-                    positiveListener.onClick(dialog);
-                    dialog.dismiss();
-
-                })
-                .setNegativeListener(negativeLabel, dialog -> {
-                    negativeListener.onClick(dialog);
-                    dialog.dismiss();
-                })
-                .build().show();
-
-
-    }
 
 
 }

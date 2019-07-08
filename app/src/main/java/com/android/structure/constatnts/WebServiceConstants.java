@@ -8,6 +8,7 @@ import java.util.Map;
  * Created by khanhamza on 09-Mar-17.
  */
 
+
 public class WebServiceConstants {
 
 
@@ -21,10 +22,6 @@ public class WebServiceConstants {
         return headers;
     }
 
-
-    // FIXME: 6/25/2018 If TRUE, for testing purpose only
-    public static boolean record_found_bypass = false;
-
     /**
      * URLs
      */
@@ -37,87 +34,98 @@ public class WebServiceConstants {
      * Check Version Code
      * BaseApplication Fabric enable
      */
-//    https://userauthentication.aku.edu
-    //    public static final String BASE_URL_LOGIN = "http://userauthservicedev.aku.edu/api/";
-    //    public static final String BASE_URL_EMAIL_VALIDATION = "http://userauthservicedev.aku.edu/api/";
 
-    public static final String BASE_URL_LOGIN = "https://userauthentication.aku.edu/api/";
-    public static final String BASE_URL_EMAIL_VALIDATION = "https://userauthentication.aku.edu/api/";
-    public static final String GETIMAGE_BASE_URL = "https://familyhifazatmobileapi.aku.edu/getimage?path=";
+    // STAGING
+//    public static final String BASE_URL = "http://papp.servstaging.com/";
+//    public static final String IMAGE_BASE_URL = "http://papp.servstaging.com/api/resize/";
 
+    // DEV
+    public static final String BASE_URL = "http://papp.apps.fomarkmedia.com/";
+    public static final String IMAGE_BASE_URL = "http://papp.apps.fomarkmedia.com/api/resize/";
 
+    // LOCAL MACHINE
+//    public static final String BASE_URL = "http://192.168.29.49/papp/";
+//    public static final String IMAGE_BASE_URL = "http://192.168.29.49/papp/api/resize/";
 
-    // UAT
-    public static final String BASE_URL = "http://ehsapi.aku.edu/api/";
-//    public static final String WS_AKU_DEPT_EMP_GET_BASE_URL = "https://uerpdmo.aku.edu/PSIGW/RESTListeningConnector/PSFT_HR/AKU_DEPT_EMPS_GET.v1/";
-
-    // LIVE
-//    public static final String BASE_URL = "https://ehsliveapi.aku.edu/api/";
-    public static final String WS_AKU_DEPT_EMP_GET_BASE_URL = "https://erphweb.aku.edu/PSIGW/RESTListeningConnector/PSFT_HR/AKU_DEPT_EMPS_GET.v1/";
-
-
-
-    public static final String WS_KEY_GET_TOKEN = "getToken";
-    public static final String _token = "-Oj71a1_t8phbV5hzL19FqURXQ2R8VUU";
-
-    // People soft
-    public static final String WS_TOKEN_CONSTANT = "Authorization: Basic QUtVX1dBUE1fUkVTVF9FTVBfREVQVDo5N0FBNUI0QS0zNzEwLTRFREYtOTQxMS02QjVEQTlEMDBEQ0U=";
-//    public static final String WS_TOKEN_CONSTANT = "Authorization: Basic QUtVX1RMX1JFU1RfRU1QX0RFUFQ6ezVDNEY0MkIzLUYyRDktNzQ1Ny0yQURDLTM5RTcxNDYyMDJCMn0=";
-
-
-    public static final String WS_AKU_DEPT_EMP_PART = "SHARE/{type}/{value}";
 
 
     /**
-     * API PARAMS
+     * API PATHS NAMES
      */
-    public static final String PARAMS_REQUEST_METHOD = "requestmethod";
-    public static final String PARAMS_REQUEST_DATA = "requestdata";
 
-    // People soft API Params
-    public static final String DIV_KEY = "2V";
-    public static final String DEPT_KEY = "1D";
-    public static final String DEPT_DETAIL_KEY = "2D";
-    public static final String EMPLOYEE_NO_KEY = "1E";
-    public static final String MR_NO_KEY = "1M";
-    public static final String GET_ALL_KEY = "*";
+    public static final String PATH_REGISTER = "register";
+    public static final String PATH_LOGIN = "login";
+    public static final String PATH_GET_DEPARTMENTS = "departments";
+    public static final String PATH_GET_SPECIALIZATIONS = "specializations";
+    public static final String PATH_GET_USERS = "users";
+    public static final String PATH_GET_USERS_SLASH = "users/";
+    public static final String PATH_GET_REFRESH = "refresh";
+    public static final String PATH_PROFILE = "profile";
+    public static final String PATH_GIFTS = "gifts";
+    public static final String PATH_REDEEM_POINTS = "redeem-points";
+    public static final String PATH_TASKS = "tasks";
+    public static final String PATH_ACCEPT_TASK = "task-users";
+    public static final String PATH_COMPLETE_TASK = "upload-completed-task";
+    public static final String PATH_REVIEWS = "reviews";
+    public static final String PATH_ADD_DEPENDENT = "addDependant";
+    public static final String PATH_CANCEL_TASK = "cancel-task";
+    public static final String PATH_CHANGE_DEPENDENT_PASSWORD = "change-dependant-password";
+    public static final String PATH_SESSIONS = "sessions";
+    public static final String PATH_ACCEPT_SESSION = "accept-session-request/";
+    public static final String PATH_DECLINE_SESSION = "decline-session-request/";
+    public static final String PATH_COMPLETE_SESSION = "complete-session/";
+    public static final String PATH_START_SESSION = "start-session/";
+    public static final String PATH_FORGET_PASSWORD= "forget-password";
+    public static final String PATH_VERIFY_RESET_CODE= "verify-reset-code";
+    public static final String PATH_RESET_PASSWORD= "reset-password";
+    public static final String PATH_CHANGE_PASSWORD= "change-password";
+    public static final String PATH_PAGES= "pages";
+    public static final String PATH_SOCIAL_LOGIN= "social_login";
+    public static final String PATH_VERIFY_COMPLETED_SESSION= "verify-completed-session/";
 
 
     /**
-     * REQUEST METHODS NAMES
+     * QUERY PARAMS
      */
 
-    // UserManager
-    public static final String METHOD_USER_LOGIN = "UserManager.Login";
-    public static final String METHOD_USER_GET_USER_IMAGE = "UserManager.GetUserImage";
-
-    //DictionaryManager
-    public static final String METHOD_ADD_SESSION = "DictionaryManager.AddSession";
-    public static final String METHOD_UPDATE_SESSION = "DictionaryManager.UpdateSession";
-    public static final String METHOD_GET_ACTIVE_QUESTION_LIST = "DictionaryManager.GetActiveQuestionList";
-    public static final String METHOD_GET_ACTIVE_MEASUREMENTS_LIST = "DictionaryManager.GetActiveMeasurementsList";
-
-    //SessionManager
-    public static final String METHOD_GET_SESSION_LIST = "SessionManager.GetSessionList";
-    public static final String METHOD_GET_SESSION_EMPLOYEES = "SessionManager.GetSessionEmp";
-    public static final String METHOD_ADD_SESSION_EMPLOYEE = "SessionManager.AddSessionEmp";
-    public static final String METHOD_UPDATE_SESSION_EMPLOYEE = "SessionManager.UpdateSessionEmp";
-    public static final String METHOD_EMAIL_SESSION = "SessionManager.EmailSession";
-    public static final String METHOD_GET_EMPLOYEE_MEASUREMENTS = "SessionManager.GetEmployeeMeasurement";
-    public static final String METHOD_SAVE_EMPLOYEE_MEASUREMENTS = "SessionManager.SaveEmployeeMeasurement";
-    public static final String METHOD_GET_EMPLOYEE_ASSESSMENTS = "SessionManager.GetEmployeeAssessment";
-    public static final String METHOD_SAVE_EMPLOYEE_ASSESSMENT = "SessionManager.SaveEmployeeAssessment";
-    public static final String METHOD_GET_EMPLOYEE_LAB_TEST_RESULTS = "SessionManager.GetEmployeeLabTestResults";
-    public static final String METHOD_SYNC_EMPLOYEE_LABS = "SessionManager.SyncEmployeeLabs";
+    public static final String Q_PARAM_ROLE = "role";
+    public static final String Q_PARAM_LIMIT = "limit";
+    public static final String Q_PARAM_OFFSET = "offset";
+    public static final String Q_PARAM_TOP_MENTOR = "top_mentor";
+    public static final String Q_PARAM_MY_MENTOR = "my_mentor";
+    public static final String Q_PARAM_SEARCH = "search";
+    public static final String Q_PARAM_DEPT_ID = "department_id";
+    public static final String Q_PARAM_TYPE = "type";
+    public static final String Q_PARAM_AVAILABLE = "available";
+    public static final String Q_PARAM_STATUS = "status";
+    public static final String Q_PARAM_MENTOR_ID = "mentor_id";
+    public static final String Q_PARAM_CURRENT_MENTOR = "current_mentor";
+    public static final String Q_PARAM_SESSION_HISTORY = "session_history";
+    public static final String Q_PARAM_SESSION_FROM = "session_from";
+    public static final String Q_PARAM_SESSION_TO = "session_to";
+    public static final String Q_PARAM_TYPE_FILTER = "type_filter";
+    public static final String Q_PARAM_UPCOMING_SESSION_REQUEST = "upcoming_session_request";
+    public static final String Q_PARAM_EMAIL = "email";
+    public static final String Q_PARAM_SLUG = "slug";
 
 
-    //Reporter Manager
-    public static final String METHOD_GET_EMPLOYEE_SUMMARY_DETAIL = "ReportManager.GetEmployeeSummaryDetail";
-    public static final String METHOD_GET_SESSION_STATS = "ReportManager.GetSessionStats";
+    /**
+     * STATUS
+     */
+
+    public static final int PARAMS_TOKEN_EXPIRE = 401;
+    public static final int PARAMS_TOKEN_BLACKLIST = 402;
 
 
-    public static final String WS_KEY_AUTHENTICATE_USER = "AuthenticateUser";
+    /**
+     * WSC KEYS
+     */
 
-    public static final String METHOD_GET_ONE_TIME_TOKEN = "SharedManager.GetOneTimeCode";
+    public static final String WSC_KEY_ATTACHMENT = "attachment[]";
+
+
+    public static final String API_KEY = "46354312";
+    public static final String SECRET = "d3c4046485d6ef92672123f7a9926f2967361d09";
+
 
 }
