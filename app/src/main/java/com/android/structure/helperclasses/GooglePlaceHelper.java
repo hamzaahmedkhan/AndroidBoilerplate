@@ -1,24 +1,25 @@
 package com.android.structure.helperclasses;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 
-import com.android.structure.helperclasses.ui.helper.UIHelper;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.android.structure.activities.MapsActivity;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,10 +33,11 @@ import static android.app.Activity.RESULT_CANCELED;
 public class GooglePlaceHelper {
 
 
-    public static final int REQUEST_CODE_AUTOCOMPLETE = 6666;
+    public static final int REQUEST_CODE_PLACE_HELPER = 6666;
     public static final int PLACE_PICKER = 0;
     public static final int PLACE_AUTOCOMPLETE = 1;
-    private static final String GEO_API_KEY = "AIzaSyBSeMW-oX5No7iLoFgjO0glfQ3vbwdKmm8";
+    private static final String GEO_API_KEY = "AIzaSyCkoOvnd1_eougL23wAx7DP65C_duaJRjQ";
+    private final boolean isFullScreen;
     private int apiType;
     private GooglePlaceDataInterface googlePlaceDataInterface;
 
@@ -50,13 +52,15 @@ public class GooglePlaceHelper {
      * @param apiType                  Api Type can be PLACE_PICKER or PLACE_AUTOCOMPLETE
      * @param googlePlaceDataInterface implement this interface in your fragment then pass its instance as this.
      * @param fragment                 your current fragment
+     * @param isFullScreen
      */
 
-    public GooglePlaceHelper(Activity activity, int apiType, GooglePlaceDataInterface googlePlaceDataInterface, Fragment fragment) {
+    public GooglePlaceHelper(Activity activity, int apiType, GooglePlaceDataInterface googlePlaceDataInterface, Fragment fragment, boolean isFullScreen) {
         this.activity = activity;
         this.apiType = apiType;
         this.googlePlaceDataInterface = googlePlaceDataInterface;
         this.fragment = fragment;
+        this.isFullScreen = isFullScreen;
     }
 
 
@@ -66,33 +70,59 @@ public class GooglePlaceHelper {
      */
 
     public void openAutocompleteActivity() {
-        try {
-            // The autocomplete activity requires Google Play Services to be available. The intent
-            // builder checks this and throws an exception if it is not the case.
-            Intent intent;
-            if (apiType == PLACE_PICKER) {
-                intent = new PlacePicker.IntentBuilder()
-                        .build(activity);
-            } else {
-                // TODO: 17-Jun-17 Change to popup -> CHOOSE MODE_FULLSCREEN OR OVERLAY for Popup
-                intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(activity);
-            }
+        // The autocomplete activity requires Google Play Services to be available. The intent
+        // builder checks this and throws an exception if it is not the case.
+        Intent intent;
+//            if (apiType == PLACE_PICKER) {
+//                intent = new Plac.IntentBuilder()
+//                        .build(activity);
+//            } else {
+        /**
+         * Initialize Places. For simplicity, the API key is hard-coded. In a production
+         * environment we recommend using a secure mechanism to manage API keys.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(activity, GEO_API_KEY);
+        }
 
-            activity.startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
-//            fragment.startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
-        } catch (GooglePlayServicesRepairableException e) {
-            // Indicates that Google Play Services is either not installed or not up to date. Prompt
-            // the user to correct the issue.
-            GoogleApiAvailability.getInstance().getErrorDialog(activity, e.getConnectionStatusCode(),
-                    0 /* requestCode */).show();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // Indicates that Google Play Services is not available and the problem is not easily
-            // resolvable.
-            String message = "Google Play Services is not available: " +
-                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+        // Set the fields to specify which types of place data to return.
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
 
-            Log.e(TAG, message);
-            UIHelper.showShortToastInCenter(activity, message);
+        // Start the autocomplete intent.
+        AutocompleteActivityMode autocompleteActivityMode;
+        if (isFullScreen) {
+            autocompleteActivityMode = AutocompleteActivityMode.FULLSCREEN;
+        } else {
+            autocompleteActivityMode = AutocompleteActivityMode.OVERLAY;
+        }
+
+        intent = new Autocomplete.IntentBuilder(
+                autocompleteActivityMode, fields)
+                .build(activity);
+
+
+        if (fragment == null) {
+            activity.startActivityForResult(intent, REQUEST_CODE_PLACE_HELPER);
+        } else {
+            fragment.startActivityForResult(intent, REQUEST_CODE_PLACE_HELPER);
+        }
+    }
+
+
+    /**
+     * Call this method in a fragment when you want to open the map
+     */
+
+    public void openMapsActivity() {
+
+
+        Intent i = new Intent(activity, MapsActivity.class);
+
+
+        if (fragment == null) {
+            activity.startActivityForResult(i, REQUEST_CODE_PLACE_HELPER);
+        } else {
+            fragment.startActivityForResult(i, REQUEST_CODE_PLACE_HELPER);
         }
     }
 
@@ -107,42 +137,42 @@ public class GooglePlaceHelper {
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == GooglePlaceHelper.REQUEST_CODE_AUTOCOMPLETE && data != null) {
+        if (requestCode == GooglePlaceHelper.REQUEST_CODE_PLACE_HELPER && data != null) {
 
-            if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                if (PlacePicker.getStatus(activity, data) == null) {
-                    return;
-                }
-                Status status = PlaceAutocomplete.getStatus(activity, data);
-                Log.e(TAG, "Error: Status = " + status.toString());
-                googlePlaceDataInterface.onError(status.toString());
-            } else if (resultCode == RESULT_CANCELED) {
-                // Indicates that the activity closed before a selection was made. For example if
-                // the user pressed the back button.
+            if (apiType == PLACE_PICKER) {
+                double lat = data.getDoubleExtra(MapsActivity.KEY_LATITUDE, 0);
+                double lng = data.getDoubleExtra(MapsActivity.KEY_LONGITUTUDE, 0);
+
+                GoogleAddressModel googleAddressModel = getAddress(activity, lat, lng);
+                googlePlaceDataInterface.onPlaceActivityResult(lng, lat, googleAddressModel.address);
+
             } else {
 
+                if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                    // TODO: Handle the error.
+                    Status status = Autocomplete.getStatusFromIntent(data);
+                    Log.e(TAG, "Error: Status = " + status.toString());
+                    googlePlaceDataInterface.onError(status.toString());
 
-                if (PlacePicker.getPlace(activity, data) == null) {
-                    return;
+                } else if (resultCode == RESULT_CANCELED) {
+                    // Indicates that the activity closed before a selection was made. For example if
+                    // the user pressed the back button.
+                } else {
+
+                    Place place = Autocomplete.getPlaceFromIntent(data);
+
+                    String locationName = place.getName();
+                    double latitude = place.getLatLng().latitude;
+                    double longitude = place.getLatLng().longitude;
+
+
+                    Log.d(TAG, "onActivityResult MAP: locationName = " + locationName);
+                    Log.d(TAG, "onActivityResult MAP: latitude = " + latitude);
+                    Log.d(TAG, "onActivityResult MAP: longitude = " + longitude);
+
+                    googlePlaceDataInterface.onPlaceActivityResult(longitude, latitude, locationName);
                 }
-
-
-                Place place = PlacePicker.getPlace(activity, data);
-
-                String locationName = place.getName().toString();
-                Double latitude = place.getLatLng().latitude;
-                Double longitude = place.getLatLng().longitude;
-
-
-                Log.d(TAG, "onActivityResult MAP: locationName = " + locationName);
-                Log.d(TAG, "onActivityResult MAP: latitude = " + latitude);
-                Log.d(TAG, "onActivityResult MAP: longitude = " + longitude);
-
-                googlePlaceDataInterface.onPlaceActivityResult(longitude, latitude, locationName);
-
-
             }
-
         }
     }
 
@@ -292,5 +322,7 @@ public class GooglePlaceHelper {
             return null;
         }
     }
+
+
 }
 

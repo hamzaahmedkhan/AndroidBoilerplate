@@ -1,8 +1,8 @@
 package com.android.structure.fragments.abstracts;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
+import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;

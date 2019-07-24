@@ -12,9 +12,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v4.view.ViewCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.text.TextUtilsCompat;
+import androidx.core.view.ViewCompat;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -31,7 +31,7 @@ import java.util.Locale;
 
 import com.android.structure.R;
 
-public class PinEntryEditText extends android.support.v7.widget.AppCompatEditText {
+public class PinEntryEditText extends androidx.appcompat.widget.AppCompatEditText {
     private static final String XML_NAMESPACE_ANDROID = "http://schemas.android.com/apk/res/android";
 
     protected String mMask = null;

@@ -31,7 +31,7 @@
         android:textSize="16sp"
         app:typeface="@string/font_bold" />
 
-    <android.support.v7.widget.AppCompatRatingBar
+    <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/ratingbarDeliverySpeed"
         style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         android:textSize="15sp"
         app:typeface="@string/font_bold" />
 
-    <android.support.v7.widget.AppCompatRatingBar
+    <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/ratingBarProductAccuracy"
         style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"

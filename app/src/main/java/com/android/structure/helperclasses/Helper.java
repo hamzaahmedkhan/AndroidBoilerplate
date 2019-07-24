@@ -24,8 +24,8 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -51,8 +51,6 @@ import java.io.File;
 import java.util.regex.Pattern;
 
 import com.android.structure.R;
-import io.realm.RealmList;
-import io.realm.RealmModel;
 
 /**
  * Created by muhammadmuzammil on 4/24/2017.
@@ -409,12 +407,6 @@ public class Helper {
             e.printStackTrace();
         }
         return jsonObject;
-    }
-
-
-    public static String serializeRealmObject(RealmList<? extends RealmModel> realmList) {
-        Gson gson = new Gson();
-        return gson.toJson(realmList);
     }
 
     public static String getDuration(File file) {

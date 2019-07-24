@@ -9,7 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 import android.util.Log;
 import android.util.Pair;
 
@@ -24,7 +24,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import io.reactivex.subjects.PublishSubject;
-import io.realm.Realm;
 
 /**
  * Created by khanhamza on 09-Mar-17.
@@ -44,8 +43,6 @@ public class BaseApplication extends MultiDexApplication implements Application.
 
         mContext = this;
         applicationName = getApplicationName(this);
-        // TODO: 12/20/2017 Enable it to use Realm
-//        initRealm();
         // TODO: 12/20/2017 Enable it to use Calligraphy font library
 //        configureCalligraphyLibrary();
 
@@ -58,9 +55,6 @@ public class BaseApplication extends MultiDexApplication implements Application.
         return mContext;
     }
 
-    private void initRealm() {
-        Realm.init(getApplicationContext());
-    }
 
     private String getApplicationName(Context context) {
         ApplicationInfo applicationInfo = context.getApplicationInfo();

@@ -19,6 +19,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.android.structure.R;
 import com.android.structure.activities.HomeActivity;
 import com.nineoldandroids.view.ViewHelper;
@@ -240,10 +243,10 @@ public class ResideMenu extends FrameLayout {
      * @param menuItem
      */
 
-    public void addMenuItem(android.support.v4.app.Fragment sideMenuView, String tag, int direction) {
+    public void addMenuItem(Fragment sideMenuView, String tag, int direction) {
 
 
-        android.support.v4.app.FragmentTransaction transaction = activity.getSupportFragmentManager()
+        FragmentTransaction transaction = activity.getSupportFragmentManager()
                 .beginTransaction();
 
 

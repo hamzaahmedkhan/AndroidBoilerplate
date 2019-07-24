@@ -2,9 +2,9 @@ package com.android.structure.fragments.dialogs;
 
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.android.structure.helperclasses.StringHelper;
 import com.android.structure.helperclasses.ui.helper.KeyboardHelper;
-import com.android.structure.helperclasses.ui.helper.UIHelper;
 import com.android.structure.managers.SharedPreferenceManager;
 import com.android.structure.widget.AnyTextView;
 import com.android.structure.widget.PinEntryEditText;

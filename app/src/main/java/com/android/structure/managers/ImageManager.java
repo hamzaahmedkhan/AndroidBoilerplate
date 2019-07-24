@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import static android.support.media.ExifInterface.ORIENTATION_ROTATE_180;
-import static android.support.media.ExifInterface.ORIENTATION_ROTATE_270;
-import static android.support.media.ExifInterface.ORIENTATION_ROTATE_90;
+import static androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_180;
+import static androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_270;
+import static androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_90;
 
 /**
  * Created by muhammadmuzammil on 7/18/2017.
