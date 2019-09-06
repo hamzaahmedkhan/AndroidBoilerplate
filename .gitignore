@@ -5,6 +5,7 @@
 .DS_Store
 /build
 gradle
+!/gradle
 /captures
 .externalNativeBuild
 .modules
@@ -61,3 +62,6 @@ local.properties
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
 *.iml
+
+*.jar
+!/gradle/wrapper/gradle-wrapper.jar
