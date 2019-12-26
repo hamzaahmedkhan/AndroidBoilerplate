@@ -59,7 +59,6 @@ abstract class BaseBottomDialog : AppCompatDialogFragment(), AdapterView.OnItemC
                 }
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(fragmentLayout, container, false)
         return view
@@ -90,6 +89,7 @@ abstract class BaseBottomDialog : AppCompatDialogFragment(), AdapterView.OnItemC
     }
 
     protected abstract val fragmentLayout: Int
+
     private val height: Int
         private get() = Resources.getSystem().displayMetrics.heightPixels
 
