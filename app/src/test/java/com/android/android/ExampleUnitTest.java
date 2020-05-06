@@ -1,4 +1,4 @@
-package com.aku.ehs;
+package com.android.android;
 
 import org.junit.Test;
 
